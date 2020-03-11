@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        getData();
+
+        async function getData() {
+            const response = await fetch('ZonAnn.Ts+dSST.csv');
+            const data = await response.text();
+            //console.log(data);
+
+            const columns = data.split('\n').slice(1);
+            columns.forEach(elt => {
+                const column = elt.split(',');
+                const year = column[0];
+                const temp = column[3];
+                console.log(year, temp);
+            });
+            //console.log(columns);
+        }
+    </script>
+</body>
+
+</html>
