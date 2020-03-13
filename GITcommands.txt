@@ -1,0 +1,55 @@
+
+Git Commands
+C:\Users\user\Documents\CURSOS\GitLab\myFirstProject>git init
+Initialized empty Git repository in C:/Users/user/Documents/CURSOS/GitLab/myFirstProject/.git/
+
+C:\Users\user\Documents\CURSOS\GitLab\myFirstProject>git status
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+
+C:\Users\user\Documents\CURSOS\GitLab\myFirstProject>git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        ReadMe.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+C:\Users\user\Documents\CURSOS\GitLab\myFirstProject>git add .
+
+C:\Users\user\Documents\CURSOS\GitLab\myFirstProject>git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   ReadMe.txt
+
+
+C:\Users\user\Documents\CURSOS\GitLab\myFirstProject>git commit -m "My First
+Commit"
+[master (root-commit) ac0403d] My First Commit
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 ReadMe.txt
+
+C:\Users\user\Documents\CURSOS\GitLab\myFirstProject>git push -u "https://gitlab.com/scharss/my-firsr-project.git" master
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 214 bytes | 13.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://gitlab.com/scharss/my-firsr-project.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'https://gitlab.com/scharss/my-firsr-project.git'.
+
+C:\Users\user\Documents\CURSOS\GitLab\myFirstProject>
+
+*********************************************
+*********************************************
+How to Fork a project
