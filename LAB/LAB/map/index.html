@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+
+    <!--<link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="main.js"></script>-->
+    <style>
+        #mapContainer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+        }
+    </style>
+    <script src="xy.js"></script>
+</head>
+
+<body onload="getLocation()">
+
+    <div id="mapContainer"></div>
+
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+
+
+
+    <!--*********************************************************************************-->
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+            console.log(lat);
+            console.log(long);
+
+
+
+            //**********************************************
+            var map = L.map('mapContainer').setView([lat, long], 5);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+
+
+
+
+
+
+            var url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&appid=0bda5bdbd55843f5716ea9febd9f26a7";
+
+
+            //***************************fetch*******************
+
+            fetch(url)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(myJson) {
+                    console.log(myJson);
+
+
+
+                    ciudad = myJson.name;
+                    //document.getElementById("demo3").innerHTML = ciudad;
+
+
+                    coordenx = myJson.coord.lat;
+                    coordeny = myJson.coord.lon;
+                    //document.getElementById("demo4").innerHTML = coordenx;
+                    //document.getElementById("demo5").innerHTML = coordeny;
+
+
+
+                    humedad = myJson.main.humidity;
+                    //document.getElementById("demo").innerHTML = humedad;
+
+                    y = myJson.main.temp_max;
+
+                    z = y - 273.15;
+
+                    console.log(y);
+                    console.log(z);
+                    //document.getElementById("demo2").innerHTML = z;
+
+
+
+                    tempmin = myJson.main.temp_min;
+
+                    w = tempmin - 273.15;
+                    //document.getElementById("demo6").innerHTML = w;
+
+                    temp = myJson.main.temp;
+                    t = temp - 273.15;
+                    //document.getElementById("demo7").innerHTML = t;
+
+
+                    presion = myJson.main.pressure;
+                    //document.getElementById("demo8").innerHTML = presion;
+
+                    clima = myJson.weather;
+
+                    console.log(clima);
+                    //document.getElementById("demo8").innerHTML = clima;
+
+
+
+
+                    /*document.getElementById("demo2").innerHTML = y;*/
+
+                });
+
+
+
+            //********************************fin_fetch****************************************
+
+            //L.marker([lat, long]).addTo(map)
+            //.bindPopup('Aca estoy');
+            //.openPopup();
+
+            L.circle([3.5189336, -76.3966477], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.5,
+                radius: 100000
+            }).addTo(map);
+
+
+
+        }
+    </script>
+
+
+
+</body>
+
+</html>

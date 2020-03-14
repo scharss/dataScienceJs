@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+
+    <!--<link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="main.js"></script>-->
+    <style>
+        #mapContainer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+        }
+    </style>
+    <!--<script src="xy.js"></script>-->
+</head>
+
+<body>
+
+    <div id="mapContainer"></div>
+
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+
+
+
+    <!--*********************************************************************************-->
+
+    <script>
+        var lat = 3.5289336;
+        var long = -76.2966477;
+
+        var x = [];
+        var y = [];
+
+        fetch('https://spreadsheets.google.com/feeds/list/1tbk3Au1lY7BYdfV3SUBkeQi0aTM02GDoe-SyBkYlJTM/1/public/values?alt=json')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(myJson) {
+                //console.log(myJson);
+
+                for (var i = 0; i < myJson.feed.entry.length; i++) {
+
+
+                    x.push(parseFloat(myJson.feed.entry[i].gsx$x.$t));
+                    y.push(parseFloat(myJson.feed.entry[i].gsx$y.$t));
+
+                }
+
+
+                console.log(x);
+
+                var w = x[0];
+                var z = y[0];
+
+                var p = x[1];
+                var q = y[1];
+                //
+                //for (i in x) {
+                //    console.log(x[i]);
+                //}
+                //console.log(w);
+                //console.log(typeof(w));
+                //console.log(z);
+                //document.getElementById("demo").innerHTML = w;
+                //document.getElementById("demo1").innerHTML = z;
+
+
+                //**********************************************
+                var map = L.map('mapContainer').setView([lat, long], 4);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+
+
+
+
+
+
+                var url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&appid=0bda5bdbd55843f5716ea9febd9f26a7";
+
+
+                //***************************fetch*******************
+
+
+
+
+
+                //********************************fin_fetch****************************************
+
+                //L.marker([lat, long]).addTo(map)
+                //.bindPopup('Aca estoy');
+                //.openPopup();
+
+                L.circle([x[0], y[0]], {
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.5,
+                    radius: 100000
+                }).addTo(map);
+
+                for (i in x) {
+                    for (j in y) {
+                        console.log(x[i] + " " + y[j]);
+                        L.circle([x[i], y[j]], {
+                            color: 'red',
+                            fillColor: '#f03',
+                            fillOpacity: 0.5,
+                            radius: 100000
+                        }).addTo(map);
+
+                    }
+
+
+
+                }
+
+
+
+            });
+    </script>
+
+
+
+</body>
+
+</html>
