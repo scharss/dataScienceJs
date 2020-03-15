@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <p id="demo"></p>
+    <script>
+        //Json de la NASA posición de la estación interncional
+        const api_url = 'https://api.wheretheiss.at/v1/satellites/25544'
+        async function getISS() {
+            const response = await fetch(api_url);
+            const data = await response.json();
+
+            console.log(data);
+            console.log(data.name);
+            console.log(data.latitude);
+            console.log(data.longitude);
+            console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        }
+        getISS();
+    </script>
+
+    <!--Json de una google sheet-->
+    <script>
+        var x = [];
+        var y = [];
+
+
+
+        fetch('https://spreadsheets.google.com/feeds/list/1tbk3Au1lY7BYdfV3SUBkeQi0aTM02GDoe-SyBkYlJTM/1/public/values?alt=json')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(myJson) {
+                //console.log(myJson);
+
+                for (var i = 0; i < myJson.feed.entry.length; i++) {
+
+
+                    x.push(parseFloat(myJson.feed.entry[i].gsx$x.$t));
+                    y.push(parseFloat(myJson.feed.entry[i].gsx$y.$t));
+
+                }
+
+
+                console.log(x);
+
+                var w = x[0];
+                var z = y[0];
+                //
+                for (i in x) {
+                    console.log(x[i]);
+                }
+                //console.log(w);
+                //console.log(typeof(w));
+                //console.log(z);
+                //document.getElementById("demo").innerHTML = w;
+                //document.getElementById("demo1").innerHTML = z;
+
+
+
+            });
+    </script>
+</body>
+
+</html>
